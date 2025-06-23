@@ -1,7 +1,15 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["node_modules", "*.js", "*.mjs", "out", "build", ".next"]
+    "ignore": [
+      "node_modules",
+      "*.js",
+      "*.mjs",
+      "out",
+      "build",
+      ".next",
+      ".vscode"
+    ]
   },
   "formatter": {
     "enabled": true,
