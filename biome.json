@@ -1,0 +1,52 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignore": ["node_modules", "*.js", "*.mjs", "out", "build", ".next"]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "ignore": ["server/makeTagPage.ts"]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    }
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "complexity": {
+        "noForEach": "off",
+        "noExcessiveCognitiveComplexity": "off",
+        "noStaticOnlyClass": "off",
+        "useSimplifiedLogicExpression": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off",
+        "noNodejsModules": "off",
+        "useImportExtensions": "off"
+      },
+      "style": {
+        "useNamingConvention": "off",
+        "noDefaultExport": "off",
+        "useBlockStatements": "off",
+        "noCommaOperator": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noConsole": "off",
+        "noConsoleLog": "off"
+      }
+    }
+  }
+}

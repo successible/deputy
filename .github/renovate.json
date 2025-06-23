@@ -1,0 +1,29 @@
+{
+  "extends": ["config:recommended", "docker:enableMajor"],
+  "timezone": "America/New_York",
+  "labels": ["enhancement"],
+  "configMigration": true,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupSlug": "all-minor-patch",
+      "groupName": "all non-major dependencies",
+      "schedule": ["before 6:00am on Monday"],
+      "automerge": true,
+      "matchPackageNames": ["*"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "groupSlug": "all-major",
+      "groupName": "all major dependencies",
+      "schedule": ["on the first day of the month before 6:00am"],
+      "automerge": false,
+      "matchPackageNames": ["*", "!/^postgres/"]
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6:00am on Tuesday"]
+  }
+}
