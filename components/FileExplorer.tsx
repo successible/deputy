@@ -1,7 +1,7 @@
 import type { File, Files } from '@/schema'
 import { useStore } from '@/store'
 import { Box, Stack, UnstyledButton } from '@mantine/core'
-import { cloneDeep, get, merge } from 'lodash-es'
+import { cloneDeep, get, isPlainObject, merge } from 'lodash-es'
 import type React from 'react'
 import { FaFolder } from 'react-icons/fa'
 import { FileRow } from './FileRow'
@@ -16,7 +16,12 @@ export const FileExplorer: React.FC<props> = ({ entry, level, ancestors }) => {
   const setFiles = useStore((state) => state.setFiles)
 
   const sortedEntry = Object.fromEntries(
-    Object.entries(entry).toSorted(([keyA], [keyB]) => keyA.localeCompare(keyB))
+    Object.entries(entry).toSorted(([keyA, valueA], [keyB, valueB]) => {
+      if (isPlainObject(valueA) && isPlainObject(valueB)) {
+        return Number('path' in valueA) - Number('path' in valueB)
+      }
+      return keyA.localeCompare(keyB)
+    })
   )
   if (sortedEntry.path) {
     const file = sortedEntry as File
