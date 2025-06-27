@@ -53,7 +53,12 @@ const Index = () => {
   return (
     <Box
       component="main"
-      style={{ maxWidth: 800, width: '95%', margin: '0px auto' }}
+      style={{
+        maxWidth: 800,
+        width: '95%',
+        margin: '0px auto',
+        marginBottom: 50,
+      }}
     >
       <Stack gap={10} component="header">
         <UniversalHeader />
@@ -70,19 +75,20 @@ const Index = () => {
             .filter((id) => {
               const badge = badges[id]
               if (filterBadges.length === 0) return true
-              let completionMatch: boolean | null = null
+              let completeMatch: boolean | null = null
+              let incompleteMatch: boolean | null = null
               let colorMatch: boolean | null = null
               filterBadges.forEach((f) => {
                 if (f === 'Complete') {
-                  completionMatch = false
+                  completeMatch = false
                   if (badge.checks >= 14) {
-                    completionMatch = true
+                    completeMatch = true
                   }
                 }
                 if (f === 'Incomplete') {
-                  completionMatch = false
+                  incompleteMatch = false
                   if (badge.checks < 14) {
-                    completionMatch = true
+                    incompleteMatch = true
                   }
                 }
                 if (colors.includes(f)) {
@@ -92,6 +98,7 @@ const Index = () => {
                   }
                 }
               })
+              const completionMatch = completeMatch || incompleteMatch
               if (completionMatch === null && colorMatch !== null)
                 return colorMatch
               if (completionMatch !== null && colorMatch === null)
