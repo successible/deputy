@@ -1,6 +1,6 @@
 import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
 import { useStore } from '@/store'
-import { Button, Modal, PasswordInput, Stack } from '@mantine/core'
+import { Button, Group, Modal, PasswordInput, Stack } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 
 export const SyncModal = () => {
@@ -13,6 +13,7 @@ export const SyncModal = () => {
   const setRepositoryUrl = useStore((state) => state.setRepositoryUrl)
   return (
     <Modal title="Sync" opened={syncModal} onClose={() => setSyncModal(false)}>
+      <Group>Version: {process.env.NEXT_PUBLIC_VERSION}</Group>
       <form onSubmit={(e) => e.preventDefault()}>
         <Stack>
           <PasswordInput
