@@ -6,7 +6,7 @@ export const TreeExplorer = () => {
   const trees = useStore((state) => state.trees)
   return (
     <Stack>
-      {trees.map((tree, i) => (
+      {(trees || []).map((tree, i) => (
         <Stack gap={0} key={`${i}${JSON.stringify(tree)}`}>
           <Tree tree={tree} path={[String(i)]} />
           <Divider mt={20} />
