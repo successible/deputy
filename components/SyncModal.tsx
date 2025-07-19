@@ -13,6 +13,7 @@ import { notifications } from '@mantine/notifications'
 
 export const SyncModal = () => {
   const badges = useStore((state) => state.badges)
+  const trees = useStore((state) => state.trees)
   const syncModal = useStore((state) => state.syncModal)
   const setSyncModal = useStore((state) => state.setSyncModal)
   const token = useStore((state) => state.token)
@@ -40,14 +41,14 @@ export const SyncModal = () => {
           <PasswordInput
             size="md"
             label="GitHub Token"
-            description="Read/write access to Gists and your Badges repository"
+            description="Read/write access to Gists and your Deputy repository"
             value={token}
             onChange={(e) => setToken(e.target.value || '')}
           />
           <PasswordInput
             size="md"
             label="Repository URL"
-            description="The URL of your Badges repository."
+            description="The URL of your Deputy repository."
             value={repositoryUrl}
             onChange={(e) => setRepositoryUrl(e.target.value || '')}
             placeholder="https://github.com/owner/repo"
@@ -63,7 +64,7 @@ export const SyncModal = () => {
                 }
                 await createOrUpdateGist({
                   token,
-                  content: JSON.stringify({ badges: badges }),
+                  content: JSON.stringify({ badges: badges, trees: trees }),
                 })
                 setSyncModal(false)
               } else {

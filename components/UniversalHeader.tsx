@@ -39,6 +39,13 @@ export const UniversalHeader = () => {
         >
           Files
         </Button>
+        <Button
+          variant={mode === 'trees' ? 'filled' : 'outline'}
+          onClick={() => setMode('trees')}
+          h={42}
+        >
+          Trees
+        </Button>
       </Button.Group>
     </Group>
   )

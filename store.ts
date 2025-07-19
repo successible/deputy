@@ -6,7 +6,7 @@ import {
   createJSONStorage,
   persist,
 } from 'zustand/middleware'
-import type { Badges, Files } from './schema'
+import type { Badges, Files, Trees } from './schema'
 
 const storage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
@@ -20,7 +20,7 @@ const storage: StateStorage = {
   },
 }
 
-export type Mode = 'badges' | 'files'
+export type Mode = 'badges' | 'files' | 'trees'
 type FilterBadges = MantineColor | 'Complete' | 'Incomplete'
 export const SORT_BADGES = ['title', 'created', 'checks', 'color'] as const
 export type SortBadges = (typeof SORT_BADGES)[number]
@@ -34,6 +34,8 @@ interface Store {
   setBadges: (badges: Badges) => void
   files: Files
   setFiles: (files: Files) => void
+  trees: Trees
+  setTrees: (trees: Trees) => void
   filterFiles: string
   setFilesFilter: (filter: string) => void
   filterBadges: FilterBadges[]
@@ -72,6 +74,12 @@ export const useStore = create<Store>()(
       setFiles: (files) => {
         set(() => ({
           files,
+        }))
+      },
+      trees: [],
+      setTrees: (trees) => {
+        set(() => ({
+          trees,
         }))
       },
       filterBadges: [],

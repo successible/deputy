@@ -4,6 +4,8 @@ import { FileExplorer } from '@/components/FileExplorer'
 import { FileRow } from '@/components/FileRow'
 import { FilesHeader } from '@/components/FilesHeader'
 import { SyncModal } from '@/components/SyncModal'
+import { TreeExplorer } from '@/components/TreeExplorer'
+import { TreesHeader } from '@/components/TreesHeader'
 import { UniversalHeader } from '@/components/UniversalHeader'
 import { flattenFiles } from '@/helpers/flattenFiles'
 import { getFileName } from '@/helpers/getFileName'
@@ -23,6 +25,7 @@ const Index = () => {
   const setBadges = useStore((state) => state.setBadges)
   const files = useStore((state) => state.files)
   const setFiles = useStore((state) => state.setFiles)
+  const setTrees = useStore((state) => state.setTrees)
   const filterBadges = useStore((state) => state.filterBadges)
   const sortBadges = useStore((state) => state.sortBadges)
   const filterFiles = useStore((state) => state.filterFiles)
@@ -38,6 +41,7 @@ const Index = () => {
         const gistContent = JSON.parse(data?.content || '{}')
         if (!isEmpty(gistContent)) {
           setBadges(gistContent.badges)
+          setTrees(gistContent.trees)
         }
       })
     }
@@ -65,9 +69,10 @@ const Index = () => {
         <Divider mt={10} />
         {mode === 'badges' && <BadgesHeader />}
         {mode === 'files' && <FilesHeader />}
+        {mode === 'trees' && <TreesHeader />}
         <SyncModal />
       </Stack>
-      <Divider mt={20} />
+      {<Divider mt={20} />}
 
       {mode === 'badges' && (
         <Stack mt={20}>
@@ -162,6 +167,11 @@ const Index = () => {
             .map(([key, value]) => {
               return <FileRow key={key} file={value} />
             })}
+        </Stack>
+      )}
+      {mode === 'trees' && (
+        <Stack mt={20} gap={0}>
+          <TreeExplorer />
         </Stack>
       )}
     </Box>

@@ -20,3 +20,5 @@ export type Badge = {
 
 export type Badges = Record<string, Badge>
 export type Files = Record<string, File | Record<string, File>>
+export type Tree = Record<string, unknown>
+export type Trees = Tree[]
