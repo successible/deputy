@@ -1,6 +1,6 @@
 import { isProduction } from './isProduction'
 
 export const getGistFileName = () => {
-  const filename = isProduction() ? 'badges.json' : 'badges-dev.json'
+  const filename = isProduction() ? 'deputy.json' : 'deputy-dev.json'
   return filename
 }
