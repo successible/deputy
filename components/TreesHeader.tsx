@@ -12,7 +12,7 @@ export const TreesHeader = () => {
           size="xs"
           h={42}
           onClick={() => {
-            setTrees([...(trees || []), { [`${trees.length}.0`]: {} }])
+            setTrees([...(trees || []), { [`${(trees || []).length}.0`]: {} }])
           }}
         >
           New +
