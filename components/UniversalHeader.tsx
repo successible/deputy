@@ -1,5 +1,5 @@
-import { useStore } from '@/store'
-import { Button, Group, Title } from '@mantine/core'
+import { type Mode, useStore } from '@/store'
+import { Button, Group, Select, Title } from '@mantine/core'
 
 export const UniversalHeader = () => {
   const setSyncModal = useStore((state) => state.setSyncModal)
@@ -24,29 +24,21 @@ export const UniversalHeader = () => {
       >
         Sync
       </Button>
-      <Button.Group ml={10}>
-        <Button
-          variant={mode === 'badges' ? 'filled' : 'outline'}
-          onClick={() => setMode('badges')}
-          h={42}
-        >
-          Badges
-        </Button>
-        <Button
-          variant={mode === 'files' ? 'filled' : 'outline'}
-          onClick={() => setMode('files')}
-          h={42}
-        >
-          Files
-        </Button>
-        <Button
-          variant={mode === 'trees' ? 'filled' : 'outline'}
-          onClick={() => setMode('trees')}
-          h={42}
-        >
-          Trees
-        </Button>
-      </Button.Group>
+      <Select
+        ml={10}
+        styles={{ input: { height: 42 } }}
+        onChange={(e) => {
+          setMode(e as Mode)
+        }}
+        w={120}
+        value={mode}
+        placeholder="Mode"
+        data={[
+          { value: 'badges', label: 'Badges' },
+          { value: 'files', label: 'Files' },
+          { value: 'trees', label: 'Trees' },
+        ]}
+      />
     </Group>
   )
 }
