@@ -1,5 +1,3 @@
-import type { Badge } from '@/schema'
-import { useStore } from '@/store'
 import {
   Button,
   Group,
@@ -7,13 +5,15 @@ import {
   Progress,
   Select,
   Stack,
-  TextInput,
   Textarea,
+  TextInput,
   useMantineTheme,
 } from '@mantine/core'
 import { produce } from 'immer'
 import { capitalize } from 'lodash-es'
 import type React from 'react'
+import type { Badge } from '@/schema'
+import { useStore } from '@/store'
 
 type props = { badge: Badge }
 export const BadgeRow: React.FC<props> = ({ badge }) => {

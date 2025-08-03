@@ -1,3 +1,6 @@
+import { Box, Divider, Stack, useMantineTheme } from '@mantine/core'
+import { isEmpty } from 'lodash-es'
+import { useEffect } from 'react'
 import { BadgeRow } from '@/components/BadgeRow'
 import { BadgesHeader } from '@/components/BadgesHeader'
 import { FileExplorer } from '@/components/FileExplorer'
@@ -12,10 +15,6 @@ import { getFileName } from '@/helpers/getFileName'
 import { getFilesInRepo } from '@/helpers/getFilesInRepo'
 import { getGist } from '@/helpers/getGist'
 import { type SortBadges, useStore } from '@/store'
-import { Box, Divider, Stack, useMantineTheme } from '@mantine/core'
-import { isEmpty } from 'lodash-es'
-
-import { useEffect } from 'react'
 
 const Index = () => {
   const theme = useMantineTheme()

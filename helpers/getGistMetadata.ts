@@ -19,8 +19,7 @@ export const getGistMetadata = async ({ token }: GetGist) => {
 
   // Try to find a gist with the same filename
   const gistMetadata = gists.find(
-    (gist) =>
-      gist.files && Object.prototype.hasOwnProperty.call(gist.files, filename)
+    (gist) => gist.files && Object.hasOwn(gist.files, filename)
   )
 
   return gistMetadata

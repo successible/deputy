@@ -1,5 +1,3 @@
-import type { Tree as TreeType } from '@/schema'
-import { useStore } from '@/store'
 import {
   Button,
   Group,
@@ -13,6 +11,8 @@ import { produce } from 'immer'
 import { cloneDeep, get, isEmpty, unset } from 'lodash-es'
 import type React from 'react'
 import { useState } from 'react'
+import type { Tree as TreeType } from '@/schema'
+import { useStore } from '@/store'
 
 type props = { tree: Record<string, unknown>; path: string[] }
 export const Tree: React.FC<props> = ({ tree, path }) => {

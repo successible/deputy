@@ -1,5 +1,3 @@
-import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
-import { useStore } from '@/store'
 import {
   Anchor,
   Button,
@@ -10,6 +8,8 @@ import {
   Text,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
+import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
+import { useStore } from '@/store'
 
 export const SyncModal = () => {
   const badges = useStore((state) => state.badges)

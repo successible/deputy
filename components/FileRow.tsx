@@ -1,8 +1,8 @@
-import { getFileName } from '@/helpers/getFileName'
-import type { File } from '@/schema'
 import { Box, UnstyledButton } from '@mantine/core'
 import type React from 'react'
 import { FaRegFile } from 'react-icons/fa'
+import { getFileName } from '@/helpers/getFileName'
+import type { File } from '@/schema'
 
 type props = { file: File }
 export const FileRow: React.FC<props> = ({ file }) => {

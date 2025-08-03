@@ -1,5 +1,3 @@
-import { createBadge } from '@/helpers/createBadge'
-import { SORT_BADGES, type SortBadges, useStore } from '@/store'
 import {
   Button,
   Group,
@@ -10,6 +8,8 @@ import {
 } from '@mantine/core'
 import { capitalize } from 'lodash-es'
 import { useEffect, useRef, useState } from 'react'
+import { createBadge } from '@/helpers/createBadge'
+import { SORT_BADGES, type SortBadges, useStore } from '@/store'
 
 export const BadgesHeader = () => {
   const theme = useMantineTheme()

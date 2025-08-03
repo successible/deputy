@@ -1,5 +1,5 @@
-import { useStore } from '@/store'
 import { Divider, Stack } from '@mantine/core'
+import { useStore } from '@/store'
 import { Tree } from './Tree'
 
 export const TreeExplorer = () => {

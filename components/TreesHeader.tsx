@@ -1,5 +1,5 @@
-import { useStore } from '@/store'
 import { Button, Group, Stack, TextInput } from '@mantine/core'
+import { useStore } from '@/store'
 
 export const TreesHeader = () => {
   const trees = useStore((state) => state.trees)

@@ -1,5 +1,5 @@
-import { type Mode, useStore } from '@/store'
 import { Button, Group, Select, Title } from '@mantine/core'
+import { type Mode, useStore } from '@/store'
 
 export const UniversalHeader = () => {
   const setSyncModal = useStore((state) => state.setSyncModal)

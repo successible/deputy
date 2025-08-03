@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
 
-import { MantineProvider, createTheme } from '@mantine/core'
+import { createTheme, MantineProvider } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import type { AppProps } from 'next/app'
 

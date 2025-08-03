@@ -1,9 +1,9 @@
-import type { File, Files } from '@/schema'
-import { useStore } from '@/store'
 import { Box, Stack, UnstyledButton } from '@mantine/core'
 import { cloneDeep, get, isPlainObject, merge } from 'lodash-es'
 import type React from 'react'
 import { FaFolder } from 'react-icons/fa'
+import type { File, Files } from '@/schema'
+import { useStore } from '@/store'
 import { FileRow } from './FileRow'
 
 type props = {

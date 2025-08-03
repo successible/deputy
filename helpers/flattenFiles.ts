@@ -1,5 +1,5 @@
-import type { File, Files } from '@/schema'
 import { isPlainObject } from 'lodash-es'
+import type { File, Files } from '@/schema'
 
 export const flattenFiles = (
   files: Files | File,

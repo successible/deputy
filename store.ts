@@ -2,9 +2,9 @@ import type { MantineColor } from '@mantine/core'
 import { del, get, set } from 'idb-keyval'
 import { create } from 'zustand'
 import {
-  type StateStorage,
   createJSONStorage,
   persist,
+  type StateStorage,
 } from 'zustand/middleware'
 import type { Badges, Files, Trees } from './schema'
 

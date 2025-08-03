@@ -1,23 +1,24 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "node_modules",
-      "*.js",
-      "*.mjs",
-      "out",
-      "build",
-      ".next",
-      ".vscode"
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/*.js",
+      "!**/*.mjs",
+      "!**/out",
+      "!**/build",
+      "!**/.next",
+      "!**/.vscode"
     ]
   },
   "formatter": {
     "enabled": true,
-    "formatWithErrors": false,
+    "formatWithErrors": true,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80,
-    "ignore": ["server/makeTagPage.ts"]
+    "includes": ["**", "!**/server/makeTagPage.ts"]
   },
   "javascript": {
     "formatter": {
@@ -26,18 +27,16 @@
       "trailingCommas": "es5"
     }
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
-      "all": true,
       "complexity": {
         "noForEach": "off",
         "noExcessiveCognitiveComplexity": "off",
         "noStaticOnlyClass": "off",
-        "useSimplifiedLogicExpression": "off"
+        "useSimplifiedLogicExpression": "off",
+        "noCommaOperator": "off"
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
@@ -47,13 +46,14 @@
       "style": {
         "useNamingConvention": "off",
         "noDefaultExport": "off",
-        "useBlockStatements": "off",
-        "noCommaOperator": "off"
+        "useBlockStatements": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noConsole": "off",
-        "noConsoleLog": "off"
+        "noConsole": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
       }
     }
   }

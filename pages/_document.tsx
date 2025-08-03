@@ -1,6 +1,6 @@
-import { isProduction } from '@/helpers/isProduction'
 import { mantineHtmlProps } from '@mantine/core'
 import { Head, Html, Main, NextScript } from 'next/document'
+import { isProduction } from '@/helpers/isProduction'
 
 export default function Document() {
   return (

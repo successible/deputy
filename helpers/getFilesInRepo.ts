@@ -1,6 +1,6 @@
-import type { Files } from '@/schema'
 import { Octokit } from '@octokit/rest'
 import { get, set } from 'lodash-es'
+import type { Files } from '@/schema'
 
 export const getFilesInRepo = async (token: string, repositoryUrl: string) => {
   const branch = 'main'
