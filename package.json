@@ -10,9 +10,9 @@
     "lint": "bash scripts/lint.sh"
   },
   "dependencies": {
-    "@mantine/core": "8.2.4",
-    "@mantine/hooks": "8.2.4",
-    "@mantine/notifications": "8.2.4",
+    "@mantine/core": "8.2.5",
+    "@mantine/hooks": "8.2.5",
+    "@mantine/notifications": "8.2.5",
     "@octokit/rest": "22.0.0",
     "idb-keyval": "6.2.2",
     "immer": "10.1.1",
@@ -28,11 +28,11 @@
     "zustand": "5.0.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.4",
+    "@biomejs/biome": "2.2.0",
     "@types/lodash-es": "4.17.12",
     "@types/luxon": "3.7.1",
-    "@types/node": "22.17.1",
-    "@types/react": "19.1.9",
+    "@types/node": "22.17.2",
+    "@types/react": "19.1.10",
     "@types/react-dom": "19.1.7",
     "@types/traverse": "0.6.37",
     "postcss": "8.5.6",

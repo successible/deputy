@@ -50,7 +50,8 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noConsole": "off"
+        "noConsole": "off",
+        "useIterableCallbackReturn": "off"
       },
       "performance": {
         "noImgElement": "off"
