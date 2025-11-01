@@ -28,7 +28,7 @@
     "zustand": "5.0.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.6",
+    "@biomejs/biome": "2.3.0",
     "@types/lodash-es": "4.17.12",
     "@types/luxon": "3.7.1",
     "@types/node": "24.9.1",
