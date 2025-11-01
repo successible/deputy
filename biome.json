@@ -9,7 +9,9 @@
       "!**/out",
       "!**/build",
       "!**/.next",
-      "!**/.vscode"
+      "!**/.vscode",
+      "!**/*.tsconfig.json",
+      "!**/*.next-env.d.ts"
     ]
   },
   "formatter": {
