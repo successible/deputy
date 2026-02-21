@@ -1,12 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Group,
-  Modal,
-  PasswordInput,
-  Stack,
-  Text,
-} from '@mantine/core'
+import { Alert, Button, Modal, PasswordInput, Stack } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
 import { useStore } from '@/store'
@@ -21,20 +13,10 @@ export const SaveModal = () => {
   const setRepositoryUrl = useStore((state) => state.setRepositoryUrl)
   return (
     <Modal title="Save" opened={saveModal} onClose={() => setSaveModal(false)}>
-      <Group gap={0} mb={10}>
-        <Text size="sm" mr={5} fw={500} component="span">
-          Version:
-        </Text>
-        <Text size="sm">
-          <Anchor
-            rel="noopener noreferrer"
-            target="_blank"
-            href={`https://github.com/successible/deputy/commit/${process.env.NEXT_PUBLIC_VERSION}`}
-          >
-            {process.env.NEXT_PUBLIC_VERSION}
-          </Anchor>
-        </Text>
-      </Group>
+      <Alert mb={15} variant="light" color="blue" title="What does Save mean?">
+        Any change you make to the local data of Deputy will be saved to the
+        cloud in your account on GitHub.com
+      </Alert>
       <form onSubmit={(e) => e.preventDefault()}>
         <Stack>
           <PasswordInput

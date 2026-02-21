@@ -10,7 +10,13 @@ export const UniversalHeader = () => {
   return (
     <Group h="100%" gap={0} mt={20} wrap="nowrap">
       <Box ml={10} mr={20}>
-        <img width={40} alt="Deputy" src="/logo.svg" />
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href={`https://github.com/successible/deputy/commit/${process.env.NEXT_PUBLIC_VERSION}`}
+        >
+          <img width={40} alt="Deputy" src="/logo.svg" />
+        </a>
       </Box>
 
       <Button.Group pr={20}>
