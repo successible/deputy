@@ -1,18 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "includes": [
-      "**",
-      "!**/node_modules",
-      "!**/*.js",
-      "!**/*.mjs",
-      "!**/out",
-      "!**/build",
-      "!**/.next",
-      "!**/.vscode",
-      "!**/*.tsconfig.json",
-      "!**/*.next-env.d.ts"
-    ]
+    "includes": ["components/**/*", "helpers/**/*", "pages/**/*"]
   },
   "formatter": {
     "enabled": true,

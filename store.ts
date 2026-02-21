@@ -6,7 +6,7 @@ import {
   persist,
   type StateStorage,
 } from 'zustand/middleware'
-import type { Files, Reminders, Trees } from './schema'
+import type { Files, Reminders } from './schema'
 
 const storage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
@@ -20,36 +20,51 @@ const storage: StateStorage = {
   },
 }
 
-export type Mode = 'reminders' | 'files' | 'trees'
+export type Mode = 'reminders' | 'files'
 type FilterReminders = MantineColor | 'Complete' | 'Incomplete'
-export const SORT_Reminders = ['title', 'created', 'checks', 'color'] as const
+export const SORT_Reminders = ['title', 'created', 'streak', 'color'] as const
 export type SortReminders = (typeof SORT_Reminders)[number]
+export const SORT_Files = ["title", "type"] as const
+export type SortFiles = (typeof SORT_Reminders)[number]
+export const allowedColors = [
+    '#2e2e2e',
+    '#868e96',
+    '#fa5252',
+    '#e64980',
+    '#be4bdb',
+    '#7950f2',
+    '#4c6ef5',
+    '#228be6',
+  ];
+
 
 interface Store {
-  hasHydrated: boolean
-  setHasHydrated: (state: boolean) => void
-  mode: Mode
-  setMode: (mode: Mode) => void
-  reminders: Reminders
-  setReminders: (reminders: Reminders) => void
   files: Files
-  setFiles: (files: Files) => void
-  trees: Trees
-  setTrees: (trees: Trees) => void
   filterFiles: string
-  setFilesFilter: (filter: string) => void
   filterReminders: FilterReminders[]
-  setFilterReminders: (filter: FilterReminders[]) => void
-  sortReminders: SortReminders
-  setSortReminders: (sortReminders: SortReminders) => void
-  searchFiles: string
-  setSearchFiles: (searchFiles: string) => void
-  syncModal: boolean
-  setSyncModal: (status: boolean) => void
-  token: string
-  setToken: (token: string) => void
+  hasHydrated: boolean
+  mode: Mode
+  reminders: Reminders
   repositoryUrl: string
+  searchFiles: string
+  searchReminders: string
+  setFiles: (files: Files) => void
+  setFilesFilter: (filter: string) => void
+  setFilterReminders: (filter: FilterReminders[]) => void
+  setHasHydrated: (state: boolean) => void
+  setMode: (mode: Mode) => void
+  setReminders: (reminders: Reminders) => void
   setRepositoryUrl: (token: string) => void
+  setSearchFiles: (searchFiles: string) => void
+  setSearchReminders: (searchReminders: string) => void
+  setSortFiles: (sortFiles: SortFiles) => void
+  setSortReminders: (sortReminders: SortReminders) => void
+  setSaveModal: (status: boolean) => void
+  setToken: (token: string) => void
+  sortFiles: string
+  sortReminders: SortReminders
+  saveModal: boolean
+  token: string
 }
 
 // Zustand store
@@ -76,16 +91,16 @@ export const useStore = create<Store>()(
           files,
         }))
       },
-      trees: [],
-      setTrees: (trees) => {
-        set(() => ({
-          trees,
-        }))
-      },
       filterReminders: [],
       setFilterReminders: (filterReminders) => {
         set(() => ({
           filterReminders,
+        }))
+      },
+      sortFiles: '' as SortFiles,
+      setSortFiles: (sortFiles) => {
+        set(() => ({
+          sortFiles,
         }))
       },
       sortReminders: '' as SortReminders,
@@ -100,16 +115,22 @@ export const useStore = create<Store>()(
           searchFiles,
         }))
       },
+      searchReminders: '',
+      setSearchReminders: (searchReminders) => {
+        set(() => ({
+          searchReminders,
+        }))
+      },
       filterFiles: '',
       setFilesFilter: (filterFiles) => {
         set(() => ({
           filterFiles,
         }))
       },
-      syncModal: false,
-      setSyncModal: (syncModal) => {
+      saveModal: false,
+      setSaveModal: (saveModal) => {
         set(() => ({
-          syncModal,
+          saveModal,
         }))
       },
       token: '',

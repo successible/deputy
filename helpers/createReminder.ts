@@ -8,10 +8,10 @@ export const createReminder = (
 ): Reminder => {
   return {
     id: nanoid(),
-    created: DateTime.now().toISO(),
-    title,
-    description,
-    checks: 0,
     color: 'blue',
+    created: DateTime.now().toISO(),
+    description,
+    streak: 0,
+    title,
   }
 }

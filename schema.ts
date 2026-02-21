@@ -14,11 +14,9 @@ export type Reminder = {
   created: string
   title: string
   description: string
-  checks: number
+  streak: number
   color: MantineColor
 }
 
 export type Reminders = Record<string, Reminder>
 export type Files = Record<string, File | Record<string, File>>
-export type Tree = Record<string, unknown>
-export type Trees = Tree[]

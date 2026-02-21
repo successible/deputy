@@ -4,11 +4,9 @@ import { useEffect } from 'react'
 import { FileExplorer } from '@/components/FileExplorer'
 import { FileRow } from '@/components/FileRow'
 import { FilesHeader } from '@/components/FilesHeader'
-import { RemindersHeader } from '@/components/ReminderHeader'
 import { ReminderRow } from '@/components/ReminderRow'
-import { SyncModal } from '@/components/SyncModal'
-import { TreeExplorer } from '@/components/TreeExplorer'
-import { TreesHeader } from '@/components/TreesHeader'
+import { RemindersHeader } from '@/components/RemindersHeader'
+import { SaveModal } from '@/components/SaveModel'
 import { UniversalHeader } from '@/components/UniversalHeader'
 import { flattenFiles } from '@/helpers/flattenFiles'
 import { getFileName } from '@/helpers/getFileName'
@@ -24,32 +22,30 @@ const Index = () => {
   const setReminders = useStore((state) => state.setReminders)
   const files = useStore((state) => state.files)
   const setFiles = useStore((state) => state.setFiles)
-  const setTrees = useStore((state) => state.setTrees)
   const filterReminders = useStore((state) => state.filterReminders)
   const sortReminders = useStore((state) => state.sortReminders)
   const filterFiles = useStore((state) => state.filterFiles)
   const searchFiles = useStore((state) => state.searchFiles)
   const token = useStore((state) => state.token)
   const repositoryUrl = useStore((state) => state.repositoryUrl)
-  const syncModal = useStore((state) => state.syncModal)
+  const saveModal = useStore((state) => state.saveModal)
   const mode = useStore((state) => state.mode)
 
   useEffect(() => {
-    if (token && !syncModal) {
+    if (token && !saveModal) {
       getGist({ token }).then((data) => {
         const gistContent = JSON.parse(data?.content || '{}')
         if (!isEmpty(gistContent)) {
           setReminders(gistContent.reminders)
-          setTrees(gistContent.trees)
         }
       })
     }
-    if (repositoryUrl && !syncModal) {
+    if (repositoryUrl && !saveModal) {
       getFilesInRepo(token, repositoryUrl).then(({ files }) => {
         setFiles(files)
       })
     }
-  }, [token, repositoryUrl, syncModal])
+  }, [token, repositoryUrl, saveModal])
 
   if (!hasHydrated) return
 
@@ -68,8 +64,7 @@ const Index = () => {
         <Divider mt={10} />
         {mode === 'reminders' && <RemindersHeader />}
         {mode === 'files' && <FilesHeader />}
-        {mode === 'trees' && <TreesHeader />}
-        <SyncModal />
+        <SaveModal />
       </Stack>
       {<Divider mt={20} />}
 
@@ -85,13 +80,13 @@ const Index = () => {
               filterReminders.forEach((f) => {
                 if (f === 'Complete') {
                   completeMatch = false
-                  if (reminder.checks >= 14) {
+                  if (reminder.streak >= 14) {
                     completeMatch = true
                   }
                 }
                 if (f === 'Incomplete') {
                   incompleteMatch = false
-                  if (reminder.checks < 14) {
+                  if (reminder.streak < 14) {
                     incompleteMatch = true
                   }
                 }
@@ -134,11 +129,11 @@ const Index = () => {
               if (direction === 'desc' && value === 'color') {
                 return reminderB.color.localeCompare(reminderA.color)
               }
-              if (direction === 'asc' && value === 'checks') {
-                return reminderA.checks - reminderB.checks
+              if (direction === 'asc' && value === 'streak') {
+                return reminderA.streak - reminderB.streak
               }
-              if (direction === 'desc' && value === 'checks') {
-                return reminderB.checks - reminderA.checks
+              if (direction === 'desc' && value === 'streak') {
+                return reminderB.streak - reminderA.streak
               }
               return 0
             })
@@ -154,6 +149,7 @@ const Index = () => {
           <FileExplorer entry={files} level={1} ancestors={[]} />
         </Stack>
       )}
+
       {mode === 'files' && (searchFiles || filterFiles) && (
         <Stack mt={20} gap={0} ml={20}>
           {Object.entries(flattenFiles(files, {}))
@@ -166,11 +162,6 @@ const Index = () => {
             .map(([key, value]) => {
               return <FileRow key={key} file={value} />
             })}
-        </Stack>
-      )}
-      {mode === 'trees' && (
-        <Stack mt={20} gap={0}>
-          <TreeExplorer />
         </Stack>
       )}
     </Box>

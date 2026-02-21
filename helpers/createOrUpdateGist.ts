@@ -38,7 +38,7 @@ export const createOrUpdateGist = async ({
     })
     notifications.show({
       title: 'Success!',
-      message: '♻️ Sync complete',
+      message: '♻️ Save complete',
     })
     return updated.data
   }
@@ -52,7 +52,7 @@ export const createOrUpdateGist = async ({
 
   notifications.show({
     title: 'Success!',
-    message: '✨ Sync complete',
+    message: '✨ Save complete',
   })
   return created.data
 }

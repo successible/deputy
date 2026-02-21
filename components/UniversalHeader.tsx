@@ -1,44 +1,43 @@
-import { Button, Group, Select, Title } from '@mantine/core'
-import { type Mode, useStore } from '@/store'
+import { Box, Button, Group } from '@mantine/core'
+import { useStore } from '@/store'
 
 export const UniversalHeader = () => {
-  const setSyncModal = useStore((state) => state.setSyncModal)
+  const setSaveModal = useStore((state) => state.setSaveModal)
   const mode = useStore((state) => state.mode)
+
   const setMode = useStore((state) => state.setMode)
 
   return (
     <Group h="100%" gap={0} mt={20} wrap="nowrap">
-      <img width={40} alt="Smiling shield" src="/logo.svg" />
-      <Title ml={10} order={4} mr={15}>
-        Deputy
-      </Title>
-      <Button
-        color="gray"
-        size="xs"
-        style={{ fontSize: 14 }}
-        h={42}
-        mr={5}
-        onClick={() => {
-          setSyncModal(true)
-        }}
-      >
-        Sync
-      </Button>
-      <Select
-        ml={10}
-        styles={{ input: { height: 42 } }}
-        onChange={(e) => {
-          setMode(e as Mode)
-        }}
-        w={120}
-        value={mode}
-        placeholder="Mode"
-        data={[
-          { value: 'reminders', label: 'Reminders' },
-          { value: 'files', label: 'Files' },
-          { value: 'trees', label: 'Trees' },
-        ]}
-      />
+      <Box ml={10} mr={20}>
+        <img width={40} alt="Deputy" src="/logo.svg" />
+      </Box>
+
+      <Button.Group pr={20}>
+        <Button
+          color="teal"
+          onClick={() => {
+            setSaveModal(true)
+          }}
+        >
+          Save
+        </Button>
+      </Button.Group>
+
+      <Button.Group>
+        <Button
+          variant={mode === 'reminders' ? undefined : 'default'}
+          onClick={() => setMode('reminders')}
+        >
+          Reminders
+        </Button>
+        <Button
+          variant={mode === 'files' ? undefined : 'default'}
+          onClick={() => setMode('files')}
+        >
+          Files
+        </Button>
+      </Button.Group>
     </Group>
   )
 }

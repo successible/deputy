@@ -11,17 +11,16 @@ import { notifications } from '@mantine/notifications'
 import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
 import { useStore } from '@/store'
 
-export const SyncModal = () => {
+export const SaveModal = () => {
   const reminders = useStore((state) => state.reminders)
-  const trees = useStore((state) => state.trees)
-  const syncModal = useStore((state) => state.syncModal)
-  const setSyncModal = useStore((state) => state.setSyncModal)
+  const saveModal = useStore((state) => state.saveModal)
+  const setSaveModal = useStore((state) => state.setSaveModal)
   const token = useStore((state) => state.token)
   const setToken = useStore((state) => state.setToken)
   const repositoryUrl = useStore((state) => state.repositoryUrl)
   const setRepositoryUrl = useStore((state) => state.setRepositoryUrl)
   return (
-    <Modal title="Sync" opened={syncModal} onClose={() => setSyncModal(false)}>
+    <Modal title="Save" opened={saveModal} onClose={() => setSaveModal(false)}>
       <Group gap={0} mb={10}>
         <Text size="sm" mr={5} fw={500} component="span">
           Version:
@@ -66,16 +65,15 @@ export const SyncModal = () => {
                   token,
                   content: JSON.stringify({
                     reminders: reminders,
-                    trees: trees,
                   }),
                 })
-                setSyncModal(false)
+                setSaveModal(false)
               } else {
-                setSyncModal(false)
+                setSaveModal(false)
               }
             }}
           >
-            Sync
+            Save
           </Button>
         </Stack>
       </form>

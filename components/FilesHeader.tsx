@@ -1,11 +1,14 @@
-import { Button, Group, Stack, TextInput } from '@mantine/core'
-import { useStore } from '@/store'
+import { Button, Group, Select, Stack, TextInput } from '@mantine/core'
+import { capitalize } from 'lodash-es'
+import { SORT_Files, type SortFiles, useStore } from '@/store'
 
 export const FilesHeader = () => {
   const filterFiles = useStore((state) => state.filterFiles)
   const setFilesFilter = useStore((state) => state.setFilesFilter)
   const searchFiles = useStore((state) => state.searchFiles)
   const setSearchFiles = useStore((state) => state.setSearchFiles)
+  const sortFiles = useStore((state) => state.sortFiles)
+  const setSortFiles = useStore((state) => state.setSortFiles)
 
   return (
     <Stack>
@@ -15,14 +18,15 @@ export const FilesHeader = () => {
           size="xs"
           h={42}
           onClick={() => {
-            // New File
+            // TODO: New File
           }}
         >
           New +
         </Button>
 
+        {/* TODO */}
         <TextInput
-          placeholder="Search Content"
+          placeholder="🔍 Search: Files"
           size="md"
           flex={1}
           w="100%"
@@ -30,9 +34,28 @@ export const FilesHeader = () => {
           onChange={(e) => setSearchFiles(e.target.value)}
         />
       </Group>
+
+      <Group>
+        {/* TODO */}
+        <Select
+          size="md"
+          width={'100%'}
+          flex={1}
+          clearable={true}
+          value={sortFiles}
+          placeholder="↕️ Sort: Files"
+          onChange={(e) => setSortFiles((e || '') as SortFiles)}
+          data={SORT_Files.toSorted().flatMap((s) => [
+            { label: `⬆️ ${capitalize(s)}`, value: `asc_${s}` },
+            { label: `⬇️ ${capitalize(s)}`, value: `desc_${s}` },
+          ])}
+        />
+      </Group>
+
+      {/* TODO */}
       <Group>
         <TextInput
-          placeholder="Filter by Name"
+          placeholder="🗂️ Filter: Files"
           size="md"
           flex={1}
           w="100%"

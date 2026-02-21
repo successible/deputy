@@ -4,6 +4,7 @@ import {
   MultiSelect,
   Select,
   Stack,
+  TextInput,
   useMantineTheme,
 } from '@mantine/core'
 import { capitalize } from 'lodash-es'
@@ -19,6 +20,8 @@ export const RemindersHeader = () => {
   const setFilterReminders = useStore((state) => state.setFilterReminders)
   const sortReminders = useStore((state) => state.sortReminders)
   const setSortReminders = useStore((state) => state.setSortReminders)
+  const searchReminders = useStore((state) => state.searchReminders)
+  const setSearchReminders = useStore((state) => state.setSearchReminders)
   const [dropdownOpened, setDropdownOpened] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -56,13 +59,24 @@ export const RemindersHeader = () => {
           New +
         </Button>
 
+        {/* TODO */}
+        <TextInput
+          placeholder="🔍 Search: Reminders"
+          size="md"
+          flex={1}
+          w="100%"
+          value={searchReminders}
+          onChange={(e) => setSearchReminders(e.target.value)}
+        />
+      </Group>
+      <Group>
         <Select
           size="md"
           width={'100%'}
           flex={1}
           clearable={true}
           value={sortReminders}
-          placeholder="Sort by"
+          placeholder="↕️ Sort: Reminders"
           onChange={(e) => setSortReminders((e || '') as SortReminders)}
           data={SORT_Reminders.toSorted().flatMap((s) => [
             { label: `⬆️ ${capitalize(s)}`, value: `asc_${s}` },
@@ -77,7 +91,7 @@ export const RemindersHeader = () => {
           dropdownOpened={dropdownOpened}
           flex={1}
           value={filterReminders || []}
-          placeholder="Filter by"
+          placeholder="🗂️ Filter: Reminders"
           onClick={() => {
             setDropdownOpened(true)
           }}
