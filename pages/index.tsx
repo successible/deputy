@@ -12,7 +12,16 @@ import { flattenFiles } from '@/helpers/flattenFiles'
 import { getFileName } from '@/helpers/getFileName'
 import { getFilesInRepo } from '@/helpers/getFilesInRepo'
 import { getGist } from '@/helpers/getGist'
-import { type SortReminders, useStore } from '@/store'
+import {
+  audioExtensions,
+  dataExtensions,
+  documentExtensions,
+  imageExtensions,
+  type SortReminders,
+  textExtensions,
+  useStore,
+  videoExtensions,
+} from '@/store'
 
 const Index = () => {
   const theme = useMantineTheme()
@@ -152,13 +161,13 @@ const Index = () => {
         </Stack>
       )}
 
-      {mode === 'files' && !searchFiles && !filterFiles && (
+      {mode === 'files' && !searchFiles && filterFiles.length === 0 && (
         <Stack mt={20} gap={0} ml={20}>
           <FileExplorer entry={files} level={1} ancestors={[]} />
         </Stack>
       )}
 
-      {mode === 'files' && (searchFiles || filterFiles) && (
+      {mode === 'files' && (searchFiles || filterFiles.length > 0) && (
         <Stack mt={20} gap={0} ml={20}>
           {Object.entries(flattenFiles(files, {}))
             .toSorted((entryA, entryB) => {
@@ -166,7 +175,42 @@ const Index = () => {
                 getFileName(entryB[0])
               )
             })
-            .filter(([key, _value]) => getFileName(key).includes(filterFiles))
+            .filter(([_key, value]) => {
+              if (filterFiles.length === 0) return true
+              let match = false
+              const extension = value.path
+                .slice(((value.path.lastIndexOf('.') - 1) >>> 0) + 2)
+                .toLowerCase()
+              filterFiles.forEach((f) => {
+                if (f === 'Image' && imageExtensions.includes(extension))
+                  match = true
+                if (f === 'Text' && textExtensions.includes(extension))
+                  match = true
+
+                if (f === 'Video' && videoExtensions.includes(extension))
+                  match = true
+                if (f === 'Audio' && audioExtensions.includes(extension))
+                  match = true
+
+                if (f === 'Document' && documentExtensions.includes(extension))
+                  match = true
+                if (f === 'Data' && dataExtensions.includes(extension))
+                  match = true
+                if (
+                  f === 'Other' &&
+                  !imageExtensions.includes(extension) &&
+                  !textExtensions.includes(extension) &&
+                  !videoExtensions.includes(extension) &&
+                  !audioExtensions.includes(extension) &&
+                  !documentExtensions.includes(extension) &&
+                  !dataExtensions.includes(extension)
+                )
+                  match = true
+              })
+
+              return match
+            })
+
             .map(([key, value]) => {
               return <FileRow key={key} file={value} />
             })}

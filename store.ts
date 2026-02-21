@@ -21,26 +21,22 @@ const storage: StateStorage = {
 }
 
 export type Mode = 'reminders' | 'files'
-type FilterReminders = MantineColor | 'Complete' | 'Incomplete'
+export type FilterFiles = 'Text' | 'Image' | 'Video' | 'Audio' | 'Document' | 'Data' | 'Other'
+export type FilterReminders = MantineColor | 'Complete' | 'Incomplete'
 export const SORT_Reminders = ['title', 'created', 'streak', 'color'] as const
 export type SortReminders = (typeof SORT_Reminders)[number]
 export const SORT_Files = ["title", "type"] as const
 export type SortFiles = (typeof SORT_Reminders)[number]
-export const allowedColors = [
-    '#2e2e2e',
-    '#868e96',
-    '#fa5252',
-    '#e64980',
-    '#be4bdb',
-    '#7950f2',
-    '#4c6ef5',
-    '#228be6',
-  ];
-
+export const imageExtensions = ["png", "svg", "jpg", "jpeg", "gif", 'webp', 'avif']
+export const textExtensions = ["txt", "md", "rtf"]
+export const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "mkv"];
+export const audioExtensions = ["mp3", "wav", "ogg", "aac", "flac", "m4a"];
+export const documentExtensions = ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx"];
+export const dataExtensions = ["json", "xml", "csv", "yaml", "yml", "sql"];
 
 interface Store {
   files: Files
-  filterFiles: string
+  filterFiles: FilterFiles[]
   filterReminders: FilterReminders[]
   hasHydrated: boolean
   mode: Mode
@@ -49,7 +45,7 @@ interface Store {
   searchFiles: string
   searchReminders: string
   setFiles: (files: Files) => void
-  setFilesFilter: (filter: string) => void
+  setFilesFilter: (filter: FilterFiles[]) => void
   setFilterReminders: (filter: FilterReminders[]) => void
   setHasHydrated: (state: boolean) => void
   setMode: (mode: Mode) => void
@@ -121,7 +117,7 @@ export const useStore = create<Store>()(
           searchReminders,
         }))
       },
-      filterFiles: '',
+      filterFiles: [],
       setFilesFilter: (filterFiles) => {
         set(() => ({
           filterFiles,

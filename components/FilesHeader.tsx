@@ -1,6 +1,14 @@
-import { Button, Group, Select, Stack, TextInput } from '@mantine/core'
+import {
+  Button,
+  Group,
+  MultiSelect,
+  Select,
+  Stack,
+  TextInput,
+} from '@mantine/core'
 import { capitalize } from 'lodash-es'
-import { SORT_Files, type SortFiles, useStore } from '@/store'
+import { useState } from 'react'
+import { type FilterFiles, SORT_Files, type SortFiles, useStore } from '@/store'
 
 export const FilesHeader = () => {
   const filterFiles = useStore((state) => state.filterFiles)
@@ -9,6 +17,7 @@ export const FilesHeader = () => {
   const setSearchFiles = useStore((state) => state.setSearchFiles)
   const sortFiles = useStore((state) => state.sortFiles)
   const setSortFiles = useStore((state) => state.setSortFiles)
+  const [dropdownOpened, setDropdownOpened] = useState(false)
 
   return (
     <Stack>
@@ -52,15 +61,37 @@ export const FilesHeader = () => {
         />
       </Group>
 
-      {/* TODO */}
       <Group>
-        <TextInput
-          placeholder="🗂️ Filter: Files"
+        <MultiSelect
+          w={'100%'}
           size="md"
+          dropdownOpened={dropdownOpened}
           flex={1}
-          w="100%"
-          value={filterFiles}
-          onChange={(e) => setFilesFilter(e.target.value)}
+          value={filterFiles || []}
+          placeholder="🗂️ Filter: Files"
+          onClick={() => {
+            setDropdownOpened(true)
+          }}
+          onChange={(e) => {
+            setDropdownOpened(false)
+            setFilesFilter((e || []) as FilterFiles[])
+          }}
+          maxDropdownHeight={200}
+          clearable={true}
+          data={[
+            {
+              group: 'Extension',
+              items: [
+                { label: 'Audio', value: 'Audio' },
+                { label: 'Data', value: 'Data' },
+                { label: 'Document', value: 'Document' },
+                { label: 'Image', value: 'Image' },
+                { label: 'Other', value: 'Other' },
+                { label: 'Text', value: 'Text' },
+                { label: 'Video', value: 'Video' },
+              ],
+            },
+          ]}
         />
       </Group>
     </Stack>

@@ -10,7 +10,12 @@ import {
 import { capitalize } from 'lodash-es'
 import { useEffect, useRef, useState } from 'react'
 import { createReminder } from '@/helpers/createReminder'
-import { SORT_Reminders, type SortReminders, useStore } from '@/store'
+import {
+  type FilterReminders,
+  SORT_Reminders,
+  type SortReminders,
+  useStore,
+} from '@/store'
 
 export const RemindersHeader = () => {
   const theme = useMantineTheme()
@@ -96,7 +101,7 @@ export const RemindersHeader = () => {
           }}
           onChange={(e) => {
             setDropdownOpened(false)
-            setFilterReminders(e || [])
+            setFilterReminders((e || []) as FilterReminders[])
           }}
           maxDropdownHeight={200}
           clearable={true}
