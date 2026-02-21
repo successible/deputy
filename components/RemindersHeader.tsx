@@ -59,7 +59,6 @@ export const RemindersHeader = () => {
           New +
         </Button>
 
-        {/* TODO */}
         <TextInput
           placeholder="🔍 Search: Reminders"
           size="md"

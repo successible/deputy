@@ -24,6 +24,7 @@ const Index = () => {
   const setFiles = useStore((state) => state.setFiles)
   const filterReminders = useStore((state) => state.filterReminders)
   const sortReminders = useStore((state) => state.sortReminders)
+  const searchReminders = useStore((state) => state.searchReminders)
   const filterFiles = useStore((state) => state.filterFiles)
   const searchFiles = useStore((state) => state.searchFiles)
   const token = useStore((state) => state.token)
@@ -71,6 +72,13 @@ const Index = () => {
       {mode === 'reminders' && (
         <Stack mt={20}>
           {Object.keys(reminders || [])
+            .filter((id) => {
+              const reminder = reminders[id]
+              const text =
+                `${reminder.title} | ${reminder.description}`.toLowerCase()
+              if (searchReminders.length === 0) return true
+              return text.includes(searchReminders.toLowerCase())
+            })
             .filter((id) => {
               const reminder = reminders[id]
               if (filterReminders.length === 0) return true
