@@ -9,7 +9,7 @@ export type File = {
   url?: string
 }
 
-export type Badge = {
+export type Reminder = {
   id: string // nanoid
   created: string
   title: string
@@ -18,7 +18,7 @@ export type Badge = {
   color: MantineColor
 }
 
-export type Badges = Record<string, Badge>
+export type Reminders = Record<string, Reminder>
 export type Files = Record<string, File | Record<string, File>>
 export type Tree = Record<string, unknown>
 export type Trees = Tree[]

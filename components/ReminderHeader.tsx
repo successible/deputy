@@ -8,17 +8,17 @@ import {
 } from '@mantine/core'
 import { capitalize } from 'lodash-es'
 import { useEffect, useRef, useState } from 'react'
-import { createBadge } from '@/helpers/createBadge'
-import { SORT_BADGES, type SortBadges, useStore } from '@/store'
+import { createReminder } from '@/helpers/createReminder'
+import { SORT_Reminders, type SortReminders, useStore } from '@/store'
 
-export const BadgesHeader = () => {
+export const RemindersHeader = () => {
   const theme = useMantineTheme()
-  const badges = useStore((state) => state.badges)
-  const setBadges = useStore((state) => state.setBadges)
-  const filterBadges = useStore((state) => state.filterBadges)
-  const setFilterBadges = useStore((state) => state.setFilterBadges)
-  const sortBadges = useStore((state) => state.sortBadges)
-  const setSortBadges = useStore((state) => state.setSortBadges)
+  const reminders = useStore((state) => state.reminders)
+  const setReminders = useStore((state) => state.setReminders)
+  const filterReminders = useStore((state) => state.filterReminders)
+  const setFilterReminders = useStore((state) => state.setFilterReminders)
+  const sortReminders = useStore((state) => state.sortReminders)
+  const setSortReminders = useStore((state) => state.setSortReminders)
   const [dropdownOpened, setDropdownOpened] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -46,8 +46,11 @@ export const BadgesHeader = () => {
           size="xs"
           h={42}
           onClick={() => {
-            const newBadge = createBadge('New Task', 'This is a description')
-            setBadges({ ...badges, [newBadge.id]: newBadge })
+            const newReminder = createReminder(
+              'New Reminder',
+              'This is a description'
+            )
+            setReminders({ ...reminders, [newReminder.id]: newReminder })
           }}
         >
           New +
@@ -58,10 +61,10 @@ export const BadgesHeader = () => {
           width={'100%'}
           flex={1}
           clearable={true}
-          value={sortBadges}
+          value={sortReminders}
           placeholder="Sort by"
-          onChange={(e) => setSortBadges((e || '') as SortBadges)}
-          data={SORT_BADGES.toSorted().flatMap((s) => [
+          onChange={(e) => setSortReminders((e || '') as SortReminders)}
+          data={SORT_Reminders.toSorted().flatMap((s) => [
             { label: `⬆️ ${capitalize(s)}`, value: `asc_${s}` },
             { label: `⬇️ ${capitalize(s)}`, value: `desc_${s}` },
           ])}
@@ -73,14 +76,14 @@ export const BadgesHeader = () => {
           size="md"
           dropdownOpened={dropdownOpened}
           flex={1}
-          value={filterBadges || []}
+          value={filterReminders || []}
           placeholder="Filter by"
           onClick={() => {
             setDropdownOpened(true)
           }}
           onChange={(e) => {
             setDropdownOpened(false)
-            setFilterBadges(e || [])
+            setFilterReminders(e || [])
           }}
           maxDropdownHeight={200}
           clearable={true}

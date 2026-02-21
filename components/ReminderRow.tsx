@@ -12,14 +12,14 @@ import {
 import { produce } from 'immer'
 import { capitalize } from 'lodash-es'
 import type React from 'react'
-import type { Badge } from '@/schema'
+import type { Reminder } from '@/schema'
 import { useStore } from '@/store'
 
-type props = { badge: Badge }
-export const BadgeRow: React.FC<props> = ({ badge }) => {
+type props = { reminder: Reminder }
+export const ReminderRow: React.FC<props> = ({ reminder }) => {
   const theme = useMantineTheme()
-  const badges = useStore((state) => state.badges)
-  const setBadges = useStore((state) => state.setBadges)
+  const reminders = useStore((state) => state.reminders)
+  const setReminders = useStore((state) => state.setReminders)
 
   return (
     <Stack w="100%">
@@ -30,11 +30,11 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
               size="md"
               fw={700}
               w={'100%'}
-              value={badge.title}
+              value={reminder.title}
               onChange={(e) => {
-                setBadges(
-                  produce(badges, (draft) => {
-                    draft[badge.id].title = e.target.value
+                setReminders(
+                  produce(reminders, (draft) => {
+                    draft[reminder.id].title = e.target.value
                   })
                 )
               }}
@@ -45,11 +45,11 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
             w={'100%'}
             minRows={2}
             autosize={true}
-            value={badge.description}
+            value={reminder.description}
             onChange={(e) => {
-              setBadges(
-                produce(badges, (draft) => {
-                  draft[badge.id].description = e.target.value
+              setReminders(
+                produce(reminders, (draft) => {
+                  draft[reminder.id].description = e.target.value
                 })
               )
             }}
@@ -58,11 +58,11 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
             <Select
               size="md"
               flex={1}
-              value={badge.color}
+              value={reminder.color}
               onChange={(e) => {
-                setBadges(
-                  produce(badges, (draft) => {
-                    draft[badge.id].color = e || 'blue'
+                setReminders(
+                  produce(reminders, (draft) => {
+                    draft[reminder.id].color = e || 'blue'
                   })
                 )
               }}
@@ -75,12 +75,12 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
             />
             <NumberInput
               size="md"
-              value={badge.checks}
+              value={reminder.checks}
               w={70}
               onChange={(e) => {
-                setBadges(
-                  produce(badges, (draft) => {
-                    draft[badge.id].checks = Number(e)
+                setReminders(
+                  produce(reminders, (draft) => {
+                    draft[reminder.id].checks = Number(e)
                   })
                 )
               }}
@@ -91,9 +91,9 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
               size="xs"
               color="gray"
               onClick={() => {
-                setBadges(
-                  produce(badges, (draft) => {
-                    delete draft[badge.id]
+                setReminders(
+                  produce(reminders, (draft) => {
+                    delete draft[reminder.id]
                   })
                 )
               }}
@@ -104,8 +104,8 @@ export const BadgeRow: React.FC<props> = ({ badge }) => {
         </Stack>
       </Group>
       <Progress
-        color={badge.color || 'blue'}
-        value={(badge.checks / 14) * 100}
+        color={reminder.color || 'blue'}
+        value={(reminder.checks / 14) * 100}
       />
     </Stack>
   )

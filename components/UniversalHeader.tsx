@@ -34,7 +34,7 @@ export const UniversalHeader = () => {
         value={mode}
         placeholder="Mode"
         data={[
-          { value: 'badges', label: 'Badges' },
+          { value: 'reminders', label: 'Reminders' },
           { value: 'files', label: 'Files' },
           { value: 'trees', label: 'Trees' },
         ]}

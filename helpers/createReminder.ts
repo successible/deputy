@@ -1,8 +1,11 @@
 import { DateTime } from 'luxon'
 import { nanoid } from 'nanoid'
-import type { Badge } from '@/schema'
+import type { Reminder } from '@/schema'
 
-export const createBadge = (title: string, description: string): Badge => {
+export const createReminder = (
+  title: string,
+  description: string
+): Reminder => {
   return {
     id: nanoid(),
     created: DateTime.now().toISO(),

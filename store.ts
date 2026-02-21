@@ -6,7 +6,7 @@ import {
   persist,
   type StateStorage,
 } from 'zustand/middleware'
-import type { Badges, Files, Trees } from './schema'
+import type { Files, Reminders, Trees } from './schema'
 
 const storage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
@@ -20,28 +20,28 @@ const storage: StateStorage = {
   },
 }
 
-export type Mode = 'badges' | 'files' | 'trees'
-type FilterBadges = MantineColor | 'Complete' | 'Incomplete'
-export const SORT_BADGES = ['title', 'created', 'checks', 'color'] as const
-export type SortBadges = (typeof SORT_BADGES)[number]
+export type Mode = 'reminders' | 'files' | 'trees'
+type FilterReminders = MantineColor | 'Complete' | 'Incomplete'
+export const SORT_Reminders = ['title', 'created', 'checks', 'color'] as const
+export type SortReminders = (typeof SORT_Reminders)[number]
 
 interface Store {
   hasHydrated: boolean
   setHasHydrated: (state: boolean) => void
   mode: Mode
   setMode: (mode: Mode) => void
-  badges: Badges
-  setBadges: (badges: Badges) => void
+  reminders: Reminders
+  setReminders: (reminders: Reminders) => void
   files: Files
   setFiles: (files: Files) => void
   trees: Trees
   setTrees: (trees: Trees) => void
   filterFiles: string
   setFilesFilter: (filter: string) => void
-  filterBadges: FilterBadges[]
-  setFilterBadges: (filter: FilterBadges[]) => void
-  sortBadges: SortBadges
-  setSortBadges: (sortBadges: SortBadges) => void
+  filterReminders: FilterReminders[]
+  setFilterReminders: (filter: FilterReminders[]) => void
+  sortReminders: SortReminders
+  setSortReminders: (sortReminders: SortReminders) => void
   searchFiles: string
   setSearchFiles: (searchFiles: string) => void
   syncModal: boolean
@@ -58,16 +58,16 @@ export const useStore = create<Store>()(
     (set) => ({
       hasHydrated: false,
       setHasHydrated: (hasHydrated) => set({ hasHydrated }),
-      mode: 'badges',
+      mode: 'reminders',
       setMode: (mode) => {
         set(() => ({
           mode,
         }))
       },
-      badges: {},
-      setBadges: (badges) => {
+      reminders: {},
+      setReminders: (reminders) => {
         set(() => ({
-          badges,
+          reminders,
         }))
       },
       files: {},
@@ -82,16 +82,16 @@ export const useStore = create<Store>()(
           trees,
         }))
       },
-      filterBadges: [],
-      setFilterBadges: (filterBadges) => {
+      filterReminders: [],
+      setFilterReminders: (filterReminders) => {
         set(() => ({
-          filterBadges,
+          filterReminders,
         }))
       },
-      sortBadges: '' as SortBadges,
-      setSortBadges: (sortBadges) => {
+      sortReminders: '' as SortReminders,
+      setSortReminders: (sortReminders) => {
         set(() => ({
-          sortBadges,
+          sortReminders,
         }))
       },
       searchFiles: '',

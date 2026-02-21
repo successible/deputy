@@ -23,7 +23,7 @@ export const createOrUpdateGist = async ({
   const octokit = new Octokit({ auth: token })
   const gistMetadata = await getGistMetadata({ token })
   const filename = getGistFileName()
-  const description = 'Managed by badges'
+  const description = 'Managed by reminders'
 
   const files: GistFile = {
     [filename]: { content },

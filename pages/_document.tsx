@@ -7,7 +7,10 @@ export default function Document() {
     <Html lang="en" {...mantineHtmlProps}>
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <meta name="description" content="Change your behaviour with badges" />
+        <meta
+          name="description"
+          content="Change your behaviour with reminders"
+        />
         {/* Manifest */}
         <link rel="manifest" href="/manifest.json" />
         {/* Without this check, when proxying on local development, the PWA will try to register itself and throw an error */}

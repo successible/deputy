@@ -12,7 +12,7 @@ import { createOrUpdateGist } from '@/helpers/createOrUpdateGist'
 import { useStore } from '@/store'
 
 export const SyncModal = () => {
-  const badges = useStore((state) => state.badges)
+  const reminders = useStore((state) => state.reminders)
   const trees = useStore((state) => state.trees)
   const syncModal = useStore((state) => state.syncModal)
   const setSyncModal = useStore((state) => state.setSyncModal)
@@ -55,7 +55,7 @@ export const SyncModal = () => {
           />
           <Button
             onClick={async () => {
-              if (Object.keys(badges).length > 0) {
+              if (Object.keys(reminders).length > 0) {
                 if (!token) {
                   return notifications.show({
                     title: 'Error',
@@ -64,7 +64,10 @@ export const SyncModal = () => {
                 }
                 await createOrUpdateGist({
                   token,
-                  content: JSON.stringify({ badges: badges, trees: trees }),
+                  content: JSON.stringify({
+                    reminders: reminders,
+                    trees: trees,
+                  }),
                 })
                 setSyncModal(false)
               } else {

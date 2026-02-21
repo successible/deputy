@@ -1,11 +1,11 @@
 import { Box, Divider, Stack, useMantineTheme } from '@mantine/core'
 import { isEmpty } from 'lodash-es'
 import { useEffect } from 'react'
-import { BadgeRow } from '@/components/BadgeRow'
-import { BadgesHeader } from '@/components/BadgesHeader'
 import { FileExplorer } from '@/components/FileExplorer'
 import { FileRow } from '@/components/FileRow'
 import { FilesHeader } from '@/components/FilesHeader'
+import { RemindersHeader } from '@/components/ReminderHeader'
+import { ReminderRow } from '@/components/ReminderRow'
 import { SyncModal } from '@/components/SyncModal'
 import { TreeExplorer } from '@/components/TreeExplorer'
 import { TreesHeader } from '@/components/TreesHeader'
@@ -14,19 +14,19 @@ import { flattenFiles } from '@/helpers/flattenFiles'
 import { getFileName } from '@/helpers/getFileName'
 import { getFilesInRepo } from '@/helpers/getFilesInRepo'
 import { getGist } from '@/helpers/getGist'
-import { type SortBadges, useStore } from '@/store'
+import { type SortReminders, useStore } from '@/store'
 
 const Index = () => {
   const theme = useMantineTheme()
   const colors = Object.keys(theme.colors)
   const hasHydrated = useStore((state) => state.hasHydrated)
-  const badges = useStore((state) => state.badges)
-  const setBadges = useStore((state) => state.setBadges)
+  const reminders = useStore((state) => state.reminders)
+  const setReminders = useStore((state) => state.setReminders)
   const files = useStore((state) => state.files)
   const setFiles = useStore((state) => state.setFiles)
   const setTrees = useStore((state) => state.setTrees)
-  const filterBadges = useStore((state) => state.filterBadges)
-  const sortBadges = useStore((state) => state.sortBadges)
+  const filterReminders = useStore((state) => state.filterReminders)
+  const sortReminders = useStore((state) => state.sortReminders)
   const filterFiles = useStore((state) => state.filterFiles)
   const searchFiles = useStore((state) => state.searchFiles)
   const token = useStore((state) => state.token)
@@ -39,7 +39,7 @@ const Index = () => {
       getGist({ token }).then((data) => {
         const gistContent = JSON.parse(data?.content || '{}')
         if (!isEmpty(gistContent)) {
-          setBadges(gistContent.badges)
+          setReminders(gistContent.reminders)
           setTrees(gistContent.trees)
         }
       })
@@ -66,38 +66,38 @@ const Index = () => {
       <Stack gap={10} component="header">
         <UniversalHeader />
         <Divider mt={10} />
-        {mode === 'badges' && <BadgesHeader />}
+        {mode === 'reminders' && <RemindersHeader />}
         {mode === 'files' && <FilesHeader />}
         {mode === 'trees' && <TreesHeader />}
         <SyncModal />
       </Stack>
       {<Divider mt={20} />}
 
-      {mode === 'badges' && (
+      {mode === 'reminders' && (
         <Stack mt={20}>
-          {Object.keys(badges)
+          {Object.keys(reminders || [])
             .filter((id) => {
-              const badge = badges[id]
-              if (filterBadges.length === 0) return true
+              const reminder = reminders[id]
+              if (filterReminders.length === 0) return true
               let completeMatch: boolean | null = null
               let incompleteMatch: boolean | null = null
               let colorMatch: boolean | null = null
-              filterBadges.forEach((f) => {
+              filterReminders.forEach((f) => {
                 if (f === 'Complete') {
                   completeMatch = false
-                  if (badge.checks >= 14) {
+                  if (reminder.checks >= 14) {
                     completeMatch = true
                   }
                 }
                 if (f === 'Incomplete') {
                   incompleteMatch = false
-                  if (badge.checks < 14) {
+                  if (reminder.checks < 14) {
                     incompleteMatch = true
                   }
                 }
                 if (colors.includes(f)) {
                   colorMatch = false
-                  if (f === badge.color) {
+                  if (f === reminder.color) {
                     colorMatch = true
                   }
                 }
@@ -111,40 +111,40 @@ const Index = () => {
                 return completionMatch && colorMatch
             })
             .toSorted((a, b) => {
-              if (!sortBadges) return 0
-              const direction = sortBadges.split('_')[0] as 'asc' | 'desc'
-              const value = sortBadges.split('_')[1] as SortBadges
-              const badgeA = badges[a]
-              const badgeB = badges[b]
+              if (!sortReminders) return 0
+              const direction = sortReminders.split('_')[0] as 'asc' | 'desc'
+              const value = sortReminders.split('_')[1] as SortReminders
+              const reminderA = reminders[a]
+              const reminderB = reminders[b]
               if (direction === 'asc' && value === 'title') {
-                return badgeA.title.localeCompare(badgeB.title)
+                return reminderA.title.localeCompare(reminderB.title)
               }
               if (direction === 'desc' && value === 'title') {
-                return badgeB.title.localeCompare(badgeA.title)
+                return reminderB.title.localeCompare(reminderA.title)
               }
               if (direction === 'asc' && value === 'created') {
-                return badgeA.created.localeCompare(badgeB.created)
+                return reminderA.created.localeCompare(reminderB.created)
               }
               if (direction === 'desc' && value === 'created') {
-                return badgeB.created.localeCompare(badgeA.created)
+                return reminderB.created.localeCompare(reminderA.created)
               }
               if (direction === 'asc' && value === 'color') {
-                return badgeA.color.localeCompare(badgeB.color)
+                return reminderA.color.localeCompare(reminderB.color)
               }
               if (direction === 'desc' && value === 'color') {
-                return badgeB.color.localeCompare(badgeA.color)
+                return reminderB.color.localeCompare(reminderA.color)
               }
               if (direction === 'asc' && value === 'checks') {
-                return badgeA.checks - badgeB.checks
+                return reminderA.checks - reminderB.checks
               }
               if (direction === 'desc' && value === 'checks') {
-                return badgeB.checks - badgeA.checks
+                return reminderB.checks - reminderA.checks
               }
               return 0
             })
             .map((id) => {
-              const badge = badges[id]
-              return <BadgeRow key={id} badge={badge} />
+              const reminder = reminders[id]
+              return <ReminderRow key={id} reminder={reminder} />
             })}
         </Stack>
       )}
