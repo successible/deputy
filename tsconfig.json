@@ -12,7 +12,9 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2017",
+    "strictPropertyInitialization": false,
+    "target": "es2022",
+
     "paths": {
       "@/*": ["./*"]
     }
