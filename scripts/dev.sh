@@ -1,3 +1,3 @@
 bash scripts/kill.sh
-pnpm install
+npm install
 next dev --turbopack
