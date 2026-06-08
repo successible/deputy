@@ -10,9 +10,9 @@
     "lint": "bash scripts/lint.sh"
   },
   "dependencies": {
-    "@mantine/core": "8.3.18",
-    "@mantine/hooks": "8.3.18",
-    "@mantine/notifications": "8.3.18",
+    "@mantine/core": "9.2.2",
+    "@mantine/hooks": "9.2.2",
+    "@mantine/notifications": "9.2.2",
     "@octokit/rest": "22.0.1",
     "idb-keyval": "6.2.2",
     "immer": "11.1.8",
